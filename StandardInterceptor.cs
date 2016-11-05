@@ -2,27 +2,12 @@ using Castle.DynamicProxy;
 
 class StandardInterceptor : IInterceptor
 {
-    public static TInterface Wrap<TInterface>(T objToWrap) where T : TInterface
+    public void Intercept(IInvocation invocation)
     {
-        ProxyGenerator generator = new ProxyGenerator();
-
-        TInterface proxy = (TInterface) generator.CreateProxy( 
-            typeof(TInterface), new StandardInterceptor(), objToWrap );
-
-        return proxy;
+        //todo: fix thread stuff here,...
+        object retValue = invocation.Proceed();
     }
-
-    public object Intercept(IInvocation invocation, params object[] args)
-    {
-        DoSomeWorkBefore(invocation, args);
-
-        object retValue = invocation.Proceed( args );
-
-        DoSomeWorkAfter(invocation, retValue, args);
-
-        return retValue;
-    }
-
+    /*
     private sealed class SingleThreadSynchronizationContext :  SynchronizationContext
     {
         private readonly BlockingCollection<KeyValuePair<SendOrPostCallback,object>> m_queue = new BlockingCollection<KeyValuePair<SendOrPostCallback,object>>();
@@ -40,8 +25,6 @@ class StandardInterceptor : IInterceptor
         }
     
         public void Complete() { m_queue.CompleteAdding(); }
-    
-    
     }
-
+    */
 }
