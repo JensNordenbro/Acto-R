@@ -1,11 +1,17 @@
 using Castle.DynamicProxy;
 
-class StandardInterceptor : IInterceptor
+class StandardInterceptor<T> : IInterceptor
 {
+    private readonly T m_T;
+    public StandardInterceptor(T t)
+    {
+        m_T = t;
+    }
+
     public void Intercept(IInvocation invocation)
     {
         //todo: fix thread stuff here,...
-        object retValue = invocation.Proceed();
+        invocation.Proceed();
     }
     /*
     private sealed class SingleThreadSynchronizationContext :  SynchronizationContext
