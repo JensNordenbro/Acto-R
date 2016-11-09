@@ -10,6 +10,8 @@ using System.Collections.Generic;
 class StandardInterceptor<T> : IInterceptor
 {
     private readonly T m_T;
+    private SynchronizationContext m_ActiveContext = new SingleThreadSynchronizationContext();
+
     public StandardInterceptor(T t)
     {
         m_T = t;
@@ -18,14 +20,16 @@ class StandardInterceptor<T> : IInterceptor
     public async void Intercept(IInvocation invocation)
     {
 
-        SynchronizationContext.SetSynchronizationContext( new SingleThreadSynchronizationContext());
+        SynchronizationContext.SetSynchronizationContext(m_ActiveContext);
         //todo: fix thread stuff here,...
         try
         {
-            await Task.FromResult(0);
-            var result = await (Task<object>)invocation.Method.Invoke(m_T, invocation.Arguments);
-            invocation.ReturnValue = result;
-            invocation.Proceed();
+            // return from synchronization context
+            await Task.FromResult(0).ConfigureAwait(true);
+            //todo: remove hardcoded-ness
+            var result = await (Task<int>)invocation.Method.Invoke(m_T, invocation.Arguments);
+            invocation.ReturnValue = Task.FromResult(result);
+            //invocation.Proceed();
         }
         finally
         {
