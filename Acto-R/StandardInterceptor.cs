@@ -1,5 +1,4 @@
 using Castle.DynamicProxy;
-
 using System;
 using System.Reflection;
 using System.Threading;
@@ -10,7 +9,7 @@ using System.Collections.Generic;
 class StandardInterceptor<T> : IInterceptor
 {
     private readonly T m_T;
-    private SynchronizationContext m_ActiveContext = new SingleThreadSynchronizationContext();
+    private readonly BlockingCollection<Action> m_queue = new BlockingCollection<Action>();
 
     public StandardInterceptor(T t)
     {
@@ -19,7 +18,7 @@ class StandardInterceptor<T> : IInterceptor
     }
 
 
-    public async void RunOnCurrentThread()
+    public void RunOnCurrentThread()
     {
         while (true)
         {
@@ -28,16 +27,21 @@ class StandardInterceptor<T> : IInterceptor
         }
     }
 
-    private readonly BlockingCollection<Action> m_queue = new BlockingCollection<Action>();
-
-    public async void Intercept(IInvocation invocation)
+    public void Intercept(IInvocation invocation)
     {
         var tcs = new TaskCompletionSource<Task<int>>();
 
         //todo: remove hardcoded-ness of return type
         m_queue.Add(() => {
-            var returnValue = (Task<int>)invocation.Method.Invoke(m_T, invocation.Arguments);
-            tcs.SetResult(returnValue);
+            try
+            {
+                var returnValue = (Task<int>)invocation.Method.Invoke(m_T, invocation.Arguments);
+                tcs.SetResult(returnValue);
+            }
+            catch (Exception e)
+            {
+                tcs.SetException(e);
+            }
         });
 
         invocation.ReturnValue = tcs.Task.Unwrap();
