@@ -9,8 +9,13 @@
       "dependencies": {
         "NETStandard.Library": "1.6.0",
         "Castle.Core": "4.0.0-beta002",
-        "System.Threading.Tasks.Dataflow" :  "4.6.0"
+        "System.Threading.Tasks.Dataflow": "4.6.0"
       }
     }
+  },
+  "scripts": {
+    "postcompile": [
+      "dotnet pack --no-build --configuration %compile:Configuration%"
+    ]
   }
 }
