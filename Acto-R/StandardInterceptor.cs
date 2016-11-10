@@ -15,53 +15,31 @@ class StandardInterceptor<T> : IInterceptor
     public StandardInterceptor(T t)
     {
         m_T = t;
+        Task.Factory.StartNew(RunOnCurrentThread, TaskCreationOptions.LongRunning);
     }
+
+
+    public async void RunOnCurrentThread()
+    {
+        while (true)
+        {
+            Action a = m_queue.Take();
+            a();
+        }
+    }
+
+    private readonly BlockingCollection<Action> m_queue = new BlockingCollection<Action>();
 
     public async void Intercept(IInvocation invocation)
     {
+        var tcs = new TaskCompletionSource<Task<int>>();
 
-        SynchronizationContext.SetSynchronizationContext(m_ActiveContext);
-        //todo: fix thread stuff here,...
-        try
-        {
-            // return from synchronization context
-            await Task.FromResult(0).ConfigureAwait(true);
-            //todo: remove hardcoded-ness
-            var result = await (Task<int>)invocation.Method.Invoke(m_T, invocation.Arguments);
-            invocation.ReturnValue = Task.FromResult(result);
-            //invocation.Proceed();
-        }
-        finally
-        {
-            SynchronizationContext.SetSynchronizationContext(null);
-        }
+        //todo: remove hardcoded-ness of return type
+        m_queue.Add(() => {
+            var returnValue = (Task<int>)invocation.Method.Invoke(m_T, invocation.Arguments);
+            tcs.SetResult(returnValue);
+        });
 
-    }
-
-    private sealed class SingleThreadSynchronizationContext :  SynchronizationContext
-    {
-        private readonly BlockingCollection<KeyValuePair<SendOrPostCallback,object>> m_queue = new BlockingCollection<KeyValuePair<SendOrPostCallback,object>>();
-
-        public SingleThreadSynchronizationContext()
-        {
-            Task.Factory.StartNew(RunOnCurrentThread, TaskCreationOptions.LongRunning);
-        }
-
-        public override void Post(SendOrPostCallback d, object state)
-        {
-            m_queue.Add(new KeyValuePair<SendOrPostCallback,object>(d, state));
-        }
-    
-        public void RunOnCurrentThread()
-        {
-            KeyValuePair<SendOrPostCallback, object> workItem;
-            while (true)
-            {
-                while (m_queue.TryTake(out workItem, Timeout.Infinite))
-                    workItem.Key(workItem.Value);
-            }
-        }
-    
-        public void Complete() { m_queue.CompleteAdding(); }
+        invocation.ReturnValue = tcs.Task.Unwrap();
     }
 }

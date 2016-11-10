@@ -10,9 +10,11 @@ namespace ConsoleApplication
         {
             Console.WriteLine("Hello World!");
             ITest test = ActorFactory.Create<ITest, Test>(() => new Test());
+
             while (true)
             {
-                new Thread(() => {
+                new Thread(() =>
+                {
                     int i = test.Hello().Result;
                     Thread.Sleep(400);
 
