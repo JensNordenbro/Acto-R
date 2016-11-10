@@ -1,5 +1,8 @@
-﻿public enum ActorAffinity
+﻿namespace ActoR
 {
-    ThreadPoolThread,
-    LongRunningThread
+    public enum ActorAffinity
+    {
+        ThreadPoolThread,
+        LongRunningThread
+    }
 }

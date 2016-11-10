@@ -7,62 +7,66 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks.Dataflow;
 
-class StandardInterceptor<T> : IInterceptor
+namespace ActoR
 {
-    private readonly T m_T;
-    private readonly BufferBlock<Action> m_queue = new BufferBlock<Action>();
-
-    public StandardInterceptor(T t, ActorAffinity affintiy)
+    sealed class StandardInterceptor<T> : IInterceptor
     {
-        m_T = t;
-        if (affintiy == ActorAffinity.LongRunningThread)
+        private readonly T m_T;
+        private readonly BufferBlock<Action> m_queue = new BufferBlock<Action>();
+
+        public StandardInterceptor(T t, ActorAffinity affintiy)
         {
-            Task.Factory.StartNew(() => RunOnCurrentThread(), TaskCreationOptions.LongRunning);
-        }
-        else
-        {
-            Task.Factory.StartNew(async () => await RunOnCurrentThreadAsync());
-        }
-            
-    }
-
-
-    public async Task RunOnCurrentThreadAsync()
-    {
-        while (true)
-        {
-            Action a = await m_queue.ReceiveAsync();
-            a();
-        }
-    }
-
-    public void RunOnCurrentThread()
-    {
-        while (true)
-        {
-            Action a = m_queue.Receive();
-            a();
-        }
-    }
-
-
-    public void Intercept(IInvocation invocation)
-    {
-        var tcs = new TaskCompletionSource<Task<int>>();
-
-        //todo: remove hardcoded-ness of return type
-        m_queue.Post(() => {
-            try
+            m_T = t;
+            if (affintiy == ActorAffinity.LongRunningThread)
             {
-                var returnValue = (Task<int>)invocation.Method.Invoke(m_T, invocation.Arguments);
-                tcs.SetResult(returnValue);
+                Task.Factory.StartNew(() => RunOnCurrentThread(), TaskCreationOptions.LongRunning);
             }
-            catch (Exception e)
+            else
             {
-                tcs.SetException(e);
+                Task.Factory.StartNew(async () => await RunOnCurrentThreadAsync());
             }
-        });
 
-        invocation.ReturnValue = tcs.Task.Unwrap();
+        }
+
+
+        public async Task RunOnCurrentThreadAsync()
+        {
+            while (true)
+            {
+                Action a = await m_queue.ReceiveAsync();
+                a();
+            }
+        }
+
+        public void RunOnCurrentThread()
+        {
+            while (true)
+            {
+                Action a = m_queue.Receive();
+                a();
+            }
+        }
+
+
+        public void Intercept(IInvocation invocation)
+        {
+            var tcs = new TaskCompletionSource<Task<int>>();
+
+            //todo: remove hardcoded-ness of return type
+            m_queue.Post(() =>
+            {
+                try
+                {
+                    var returnValue = (Task<int>)invocation.Method.Invoke(m_T, invocation.Arguments);
+                    tcs.SetResult(returnValue);
+                }
+                catch (Exception e)
+                {
+                    tcs.SetException(e);
+                }
+            });
+
+            invocation.ReturnValue = tcs.Task.Unwrap();
+        }
     }
 }

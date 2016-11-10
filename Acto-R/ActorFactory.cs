@@ -1,20 +1,23 @@
 using System;
 using Castle.DynamicProxy;
 
-public static class ActorFactory
+namespace ActoR 
 {
-    public static TInterface Create<TInterface, TConcrete>(Func<TConcrete> instanceFactory, ActorAffinity affinity) 
-        where TConcrete : TInterface
-        where TInterface : class
+    public static class ActorFactory
     {
-        var generator = new ProxyGenerator();
+        public static TInterface Create<TInterface, TConcrete>(Func<TConcrete> instanceFactory, ActorAffinity affinity)
+            where TConcrete : TInterface
+            where TInterface : class
+        {
+            var generator = new ProxyGenerator();
 
-        TInterface proxy = generator.CreateInterfaceProxyWithoutTarget<TInterface>( 
-            new StandardInterceptor<TConcrete>(instanceFactory(), affinity));
+            TInterface proxy = generator.CreateInterfaceProxyWithoutTarget<TInterface>(
+                new StandardInterceptor<TConcrete>(instanceFactory(), affinity));
 
-        return proxy;
+            return proxy;
 
-    } 
+        }
 
 
+    }
 }
