@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
+public enum ActorAffinity
+{
+    OneCall,
+    OneCallSameThread
+}
+
 class StandardInterceptor<T> : IInterceptor
 {
     private readonly T m_T;
     private readonly BlockingCollection<Action> m_queue = new BlockingCollection<Action>();
 
-    public StandardInterceptor(T t)
+    public StandardInterceptor(T t, ActorAffinity affintiy)
     {
         m_T = t;
         Task.Factory.StartNew(RunOnCurrentThread, TaskCreationOptions.LongRunning);

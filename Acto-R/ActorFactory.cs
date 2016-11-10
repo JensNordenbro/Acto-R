@@ -10,7 +10,7 @@ public static class ActorFactory
         var generator = new ProxyGenerator();
 
         TInterface proxy = generator.CreateInterfaceProxyWithoutTarget<TInterface>( 
-            new StandardInterceptor<TConcrete>(instanceFactory()));
+            new StandardInterceptor<TConcrete>(instanceFactory(), ActorAffinity.OneCallSameThread));
 
         return proxy;
 
