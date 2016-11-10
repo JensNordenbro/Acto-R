@@ -8,7 +8,8 @@
     "netstandard1.6": {
       "dependencies": {
         "NETStandard.Library": "1.6.0",
-        "Castle.Core" : "4.0.0-beta002"
+        "Castle.Core": "4.0.0-beta002",
+        "System.Threading.Tasks.Dataflow" :  "4.6.0"
       }
     }
   }
