@@ -9,7 +9,7 @@ namespace ConsoleApplication
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine($"Hello World from {Thread.CurrentThread.ManagedThreadId}!");
+            Console.WriteLine($"Main Thread: {Thread.CurrentThread.ManagedThreadId}!");
             ITest testActorProxy = ActorFactory.Create<ITest, Test>(() => new Test(), ActorAffinity.LongRunningThread);
             int j = testActorProxy.Hello().Result;
 
