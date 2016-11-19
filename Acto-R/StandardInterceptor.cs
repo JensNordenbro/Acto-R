@@ -51,11 +51,8 @@ namespace ActoR
 
         public void Intercept(IInvocation invocation)
         {
-            
             var tcs = new TaskCompletionSource<object>();
-            var conversion = new ConversionService();
 
-            //todo: remove hardcoded-ness of return type
             m_queue.Post(() =>
             {
                 try
@@ -74,48 +71,7 @@ namespace ActoR
                 }
             });
 
-            Type wantedTask = invocation.Method.ReturnType;
-
-
-            invocation.ReturnValue = conversion.ChangeTaskType(wantedTask, tcs.Task); 
-                //conversion.ChangeTaskType(
-                //    wantedTask,
-                //    tcs.Task.ContinueWith(
-                //        prev => conversion.ChangeReturnType(wantedTask, prev)
-                //    )
-                //);
-        }
-
-
-        private class ConversionService
-        {
-            public object ChangeTaskType(Type dest, Task<object> input)
-            {
-                Type tResult = dest.GetGenericArguments().Single();
-                MethodInfo castMethod = this.GetType().GetMethod(nameof(Cast)).MakeGenericMethod(tResult);
-                object castedObject = castMethod.Invoke(null, new object[] { input });
-                return castedObject;
-            }
-
-            public object ChangeReturnType(Type dest, Task<object> input)
-            {
-                Type tResult = dest.GetGenericArguments().Single();
-                MethodInfo setResultMethod = this.GetType().GetMethod(nameof(SetResult)).MakeGenericMethod(tResult);
-                object castedObject = setResultMethod.Invoke(null, new object[] { input });
-                return castedObject;
-            }
-
-            public static Task<TReturnType> Cast<TReturnType>(Task<object> o) 
-            {
-                return o.ContinueWith(prev => (TReturnType)prev.Result);
-            }
-
-            public static Task<TReturnType> SetResult<TReturnType>(Task<object> o)
-            {
-                TaskCompletionSource<TReturnType> tcs = new TaskCompletionSource<TReturnType>();
-                tcs.SetResult((TReturnType)o.Result);
-                return tcs.Task;
-            }
+            invocation.ReturnValue = ConversionService.ChangeTaskType(invocation.Method.ReturnType, tcs.Task);
         }
     }
 }

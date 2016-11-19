@@ -10,11 +10,17 @@ namespace ConsoleApplication
         public static void Main(string[] args)
         {
             Console.WriteLine($"Hello World from {Thread.CurrentThread.ManagedThreadId}!");
-            ITest test = ActorFactory.Create<ITest, Test>(() => new Test(), ActorAffinity.LongRunningThread);
+            ITest test = ActorFactory.Create<ITest, Test>(() => new Test(), ActorAffinity.ThreadPoolThread);
             int j = test.Hello().Result;
 
             while (true)
             {
+                new Thread(() =>
+                {
+                    MyResult result = test.GetResult().Result;
+                    Console.WriteLine($"Got result: {result.ToString()}");
+                }).Start();
+
                 new Thread(() =>
                 {
                     int i = test.Hello().Result;
@@ -32,25 +38,54 @@ namespace ConsoleApplication
 
         }
 
-
         public interface ITest
         {
 
             Task<int> Hello();
             Task<string> World();
+
+            Task<MyResult> GetResult();
         }
+
+        public class MyResult
+        {
+            public int i = new Random().Next();
+            public int j = new Random().Next();
+
+            public string text = "info";
+
+            string internalText = "internal_info";
+
+            public override string ToString() => $"(i:{i}, j:{j}, text:{text}, internalText:{internalText})";
+        }
+
 
         public class Test : ITest
         {
+
+            private static void WriteThread(string method)
+            {
+                Console.WriteLine($"{method}: from thread {Thread.CurrentThread.ManagedThreadId}");
+            }
+
+
+            public async Task<MyResult> GetResult()
+            {
+                WriteThread(nameof(GetResult));
+                await Task.Delay(2000);
+                return new MyResult();
+            }
+
+
             public async Task<int> Hello()
             {
-                Console.WriteLine($"Hello from thread {Thread.CurrentThread.ManagedThreadId}");
+                WriteThread(nameof(Hello));
                 return await Task.FromResult(12);
             }
 
             public async Task<string> World()
             {
-                Console.WriteLine($"World from thread {Thread.CurrentThread.ManagedThreadId}");
+                WriteThread(nameof(World));
                 return await Task.FromResult("World");
             }
 
