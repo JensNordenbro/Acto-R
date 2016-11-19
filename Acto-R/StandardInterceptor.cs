@@ -70,7 +70,7 @@ namespace ActoR
                 return tcs.Task;
             });
 
-            invocation.ReturnValue = ConversionService.ChangeTaskType(invocation.Method.ReturnType, tcs.Task);
+            invocation.ReturnValue = tcs.Task.ChangeTaskType(invocation.Method.ReturnType);
         }
     }
 }

@@ -37,6 +37,8 @@
   </ItemGroup>
   <PropertyGroup Label="Configuration">
     <RootNamespace>ActoR</RootNamespace>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
