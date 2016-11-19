@@ -40,7 +40,6 @@ namespace ConsoleApplication
 
         public interface ITest
         {
-
             Task<int> Hello();
             Task<string> World();
 

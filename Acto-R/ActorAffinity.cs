@@ -2,7 +2,13 @@
 {
     public enum ActorAffinity
     {
-        ThreadPoolThread,
+        /// <summary>
+        /// No thread affinity
+        /// </summary>
+        ThreadPoolThread, 
+        /// <summary>
+        /// Thread affinity
+        /// </summary>
         LongRunningThread
     }
 }
