@@ -23,15 +23,19 @@ Use:
        
 ...to create a proxy where all calls to testActorProxy follows the ThreadAffinity rules
 
-## Roadmap 1.0: 
-* Think through API
-* Stabilization
-* Validate claims in Readme
-* Interface validation
-* Code quality
+## Roadmap 0.1
+* Push Nuget 0.1 version
 * Unit tests 
 
+## Roadmap 1.0: 
+* Think through API
+* Lampda-based programming instead of interface based programming ?!
+* Proper Interface validation
+* Validate claims in Readme
+* Stabilization
+* Code quality
+
 ## Roadmap 1.0/2.0:
-* Lampda-based programming instead of interface based programming
+
 * Affintiy groups (many actors, same thread)
 * ...
