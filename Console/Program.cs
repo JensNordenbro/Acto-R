@@ -10,7 +10,7 @@ namespace ConsoleApplication
         public static void Main(string[] args)
         {
             Console.WriteLine($"Hello World from {Thread.CurrentThread.ManagedThreadId}!");
-            ITest test = ActorFactory.Create<ITest, Test>(() => new Test(), ActorAffinity.ThreadPoolThread);
+            ITest test = ActorFactory.Create<ITest, Test>(() => new Test(), ActorAffinity.LongRunningThread);
             int j = test.Hello().Result;
 
             while (true)
@@ -23,7 +23,7 @@ namespace ConsoleApplication
                 }).Start();
                 new Thread(() =>
                 {
-                    int i = test.World().Result;
+                    string s = test.World().Result;
                     Thread.Sleep(400);
 
                 }).Start();
@@ -37,7 +37,7 @@ namespace ConsoleApplication
         {
 
             Task<int> Hello();
-            Task<int> World();
+            Task<string> World();
         }
 
         public class Test : ITest
@@ -48,10 +48,10 @@ namespace ConsoleApplication
                 return await Task.FromResult(12);
             }
 
-            public async Task<int> World()
+            public async Task<string> World()
             {
                 Console.WriteLine($"World from thread {Thread.CurrentThread.ManagedThreadId}");
-                return await Task.FromResult(12);
+                return await Task.FromResult("World");
             }
 
         }
