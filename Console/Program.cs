@@ -10,26 +10,26 @@ namespace ConsoleApplication
         public static void Main(string[] args)
         {
             Console.WriteLine($"Hello World from {Thread.CurrentThread.ManagedThreadId}!");
-            ITest test = ActorFactory.Create<ITest, Test>(() => new Test(), ActorAffinity.ThreadPoolThread);
-            int j = test.Hello().Result;
+            ITest testActorProxy = ActorFactory.Create<ITest, Test>(() => new Test(), ActorAffinity.LongRunningThread);
+            int j = testActorProxy.Hello().Result;
 
             while (true)
             {
                 new Thread(() =>
                 {
-                    MyResult result = test.GetResult().Result;
+                    MyResult result = testActorProxy.GetResult().Result;
                     Console.WriteLine($"Got result: {result.ToString()}");
                 }).Start();
 
                 new Thread(() =>
                 {
-                    int i = test.Hello().Result;
+                    int i = testActorProxy.Hello().Result;
                     Thread.Sleep(400);
 
                 }).Start();
                 new Thread(() =>
                 {
-                    string s = test.World().Result;
+                    string s = testActorProxy.World().Result;
                     Thread.Sleep(400);
 
                 }).Start();
