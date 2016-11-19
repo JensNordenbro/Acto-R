@@ -25,6 +25,8 @@ Use:
 
 ## Roadmap 0.1
 * Unit tests 
+* Decide target frameworks 
+* Cleanup dependencies
 * Push Nuget 0.1 version [Get the whole chain]
 
 ## Roadmap 1.0: 
