@@ -14,7 +14,7 @@ You define a class Test implementing an interface ITest of Task-typed return val
         {
             Task<int> GetGlobalSumAsync();
             Task<string> GetReportCVSAsync();
-            Task<MyResult> GetOtherResult();
+            Task<MyResult> GetOtherResultAsync();
         }
 Notice, all return types in the interface must be Task<>:s. 
 
