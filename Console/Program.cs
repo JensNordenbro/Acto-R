@@ -9,12 +9,14 @@ namespace ConsoleApplication
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine($"Main Thread: {Thread.CurrentThread.ManagedThreadId}!");
+            
             ITest testActorProxy = ActorFactory.Create<ITest, Test>(() => new Test(), ActorAffinity.LongRunningThread);
             int j = testActorProxy.Hello().Result;
-
+            int count = 0;
             while (true)
             {
+                //Console.WriteLine($"Start iteration {count} from Main Thread: {Thread.CurrentThread.ManagedThreadId}!");
+                count++;
                 new Thread(() =>
                 {
                     MyResult result = testActorProxy.GetResult().Result;
@@ -24,17 +26,26 @@ namespace ConsoleApplication
                 new Thread(() =>
                 {
                     int i = testActorProxy.Hello().Result;
-                    Thread.Sleep(400);
 
                 }).Start();
                 new Thread(() =>
                 {
                     string s = testActorProxy.World().Result;
-                    Thread.Sleep(400);
 
                 }).Start();
+
+                if ((count % 5) == 0)
+                {
+                    new Thread(() =>
+                    {
+                        testActorProxy.DelayWorld().Wait();
+
+                    }).Start();
+                }
+
                 Thread.Sleep(500);
             }
+            
 
         }
 
@@ -44,6 +55,8 @@ namespace ConsoleApplication
             Task<string> World();
 
             Task<MyResult> GetResult();
+
+            Task<int> DelayWorld();
         }
 
         public class MyResult
@@ -67,11 +80,19 @@ namespace ConsoleApplication
                 Console.WriteLine($"{method}: from thread {Thread.CurrentThread.ManagedThreadId}");
             }
 
+            public async Task<int> DelayWorld()
+            {
+                const int delay = 2000;
+                WriteThread($"{nameof(DelayWorld)} for {delay/1000.0} s");
+                
+                await Task.Delay(delay);
+                return delay;
+                
+            }
 
             public async Task<MyResult> GetResult()
             {
                 WriteThread(nameof(GetResult));
-                await Task.Delay(2000);
                 return new MyResult();
             }
 

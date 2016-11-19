@@ -8,7 +8,7 @@ namespace ActoR
     sealed class StandardInterceptor<T> : IInterceptor
     {
         private readonly T m_T;
-        private readonly BufferBlock<Action> m_queue = new BufferBlock<Action>();
+        private readonly BufferBlock<Func<Task>> m_queue = new BufferBlock<Func<Task>>();
 
         public StandardInterceptor(T t, ActorAffinity affintiy)
         {
@@ -29,17 +29,20 @@ namespace ActoR
         {
             while (true)
             {
-                Action a = await m_queue.ReceiveAsync();
-                a();
+                Func<Task> a = await m_queue.ReceiveAsync();
+                Task t = a();
+                await t.MuteResult();
             }
         }
 
+        
         public void RunOnCurrentThread()
         {
             while (true)
             {
-                Action a = m_queue.Receive();
-                a();
+                Func<Task> a = m_queue.Receive();
+                Task t = a();
+                t.MuteResult().Wait();
             }
         }
 
@@ -64,6 +67,7 @@ namespace ActoR
                 {
                     tcs.SetException(e);
                 }
+                return tcs.Task;
             });
 
             invocation.ReturnValue = ConversionService.ChangeTaskType(invocation.Method.ReturnType, tcs.Task);
