@@ -24,8 +24,8 @@ Use:
 ...to create a proxy where all calls to testActorProxy follows the ThreadAffinity rules
 
 ## Roadmap 0.1
-* Push Nuget 0.1 version
 * Unit tests 
+* Push Nuget 0.1 version [Get the whole chain]
 
 ## Roadmap 1.0: 
 * Think through API
