@@ -24,7 +24,7 @@ namespace ConsoleApplication
             int a = 1, b = 6;
             // simulate heavy calculation
             Task<int> calculation = actor.Do(() => {
-                Console.WriteLine($"Timeconsuming (3s) calculation on {Thread.CurrentThread.ManagedThreadId} will halt other shores to be done!");
+                Console.WriteLine($"Timeconsuming (3s) calculation on thread {Thread.CurrentThread.ManagedThreadId} will halt other shores to be done!");
                 Console.WriteLine("It is expected that the result, followed by other queued work is displayed after 3s...");
                 Thread.Sleep(3000);
                 return a * b;
