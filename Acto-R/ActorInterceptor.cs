@@ -15,17 +15,17 @@ namespace ActoR
             m_T = t;
             if (affintiy == ActorAffinity.LongRunningThread)
             {
-                Task.Factory.StartNew(() => RunOnCurrentThread(), TaskCreationOptions.LongRunning);
+                Task.Factory.StartNew(() => StartInvokesOnDedicatedThread(), TaskCreationOptions.LongRunning);
             }
             else
             {
-                Task.Factory.StartNew(async () => await RunOnCurrentThreadAsync());
+                Task.Factory.StartNew(async () => await StartInvokesOnArbitraryThread());
             }
 
         }
 
 
-        public async Task RunOnCurrentThreadAsync()
+        public async Task StartInvokesOnArbitraryThread()
         {
             while (true)
             {
@@ -36,7 +36,7 @@ namespace ActoR
         }
 
         
-        public void RunOnCurrentThread()
+        public void StartInvokesOnDedicatedThread()
         {
             while (true)
             {
