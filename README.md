@@ -7,7 +7,7 @@ Even though only one thread initiates work within your Actor, your implementatio
 
 It is possible to configure Thread affinity using ActorAffinity.LongRunningThread-option. If this is not necessary, only use ActorAffinity.ThreadPoolThread. Regardless exactly one call is executing in your actor taget at a time.  
 
-### Howto make a service implementation be managed by an actor 
+### Howto managed a service implementation by an actor 
 You define a class Test implementing an interface ITest of Task-typed return values: 
 
         public interface ITest
@@ -18,12 +18,12 @@ You define a class Test implementing an interface ITest of Task-typed return val
         }
 Notice, all return types in the interface must be Task<>:s. 
 
-Use: 
+Later create an Actor that services the calls to the interface methods: 
+ 
         ITest testActorProxy = ActorFactory.Create<ITest, Test>(() => new Test(), ActorAffinity.LongRunningThread);
        
-...to create a proxy where all calls to testActorProxy follows the ThreadAffinity rules. 
 
-### Howto fire off lambdas to by managed by an actor 
+### Howto manage lambdas by an actor 
 
         Actor actor = ActorFactory.Create(ActorAffinity.LongRunningThread);
         Task t = actor.Do( () => ... );
