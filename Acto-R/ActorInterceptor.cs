@@ -31,7 +31,7 @@ namespace ActoR
             {
                 Func<Task> a = await m_queue.ReceiveAsync();
                 Task t = a();
-                await t.MuteResult();
+                await t.SupressResult();
             }
         }
 
@@ -42,13 +42,14 @@ namespace ActoR
             {
                 Func<Task> a = m_queue.Receive();
                 Task t = a();
-                t.MuteResult().Wait();
+                t.SupressResult().Wait();
             }
         }
 
 
         public void Intercept(IInvocation invocation)
         {
+            bool containsReturnValue = invocation.Method.ReturnType.IsConstructedGenericType;
             var tcs = new TaskCompletionSource<object>();
 
             m_queue.Post(() =>
@@ -59,8 +60,16 @@ namespace ActoR
 
                     taskReturned.ContinueWith(previous =>
                     {
-                        dynamic prevFlexible = previous;
-                        tcs.SetResult(prevFlexible.Result);
+                        if (containsReturnValue)
+                        {
+
+                            dynamic prevFlexible = previous;
+                            tcs.SetResult(prevFlexible.Result);
+                        }
+                        else
+                        {
+                            tcs.SetResult("No result");
+                        }
                     });
                 }
                 catch (Exception e)
@@ -70,7 +79,12 @@ namespace ActoR
                 return tcs.Task;
             });
 
-            invocation.ReturnValue = tcs.Task.ChangeTaskType(invocation.Method.ReturnType);
+            if (containsReturnValue)
+                invocation.ReturnValue = tcs.Task.ChangeTaskType(invocation.Method.ReturnType);
+            else
+                invocation.ReturnValue = tcs.Task.AsNonReturningTask();
         }
+
+        
     }
 }

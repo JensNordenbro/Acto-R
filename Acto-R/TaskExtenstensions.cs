@@ -7,7 +7,7 @@ namespace ActoR
 {
     static class TaskExtenstensions
     {
-        public static Task MuteResult(this Task t)
+        public static Task SupressResult(this Task t)
         {
             return t.ContinueWith(task => { });
         }
@@ -18,6 +18,11 @@ namespace ActoR
             MethodInfo castMethod = typeof(Internal).GetMethod(nameof(Internal.ChangeTaskType)).MakeGenericMethod(resultType);
             object castedObject = castMethod.Invoke(null, new object[] { input });
             return castedObject;
+        }
+
+        public static Task AsNonReturningTask(this Task<object> input)
+        {
+            return input.ContinueWith(task => { });
         }
 
         private static class Internal

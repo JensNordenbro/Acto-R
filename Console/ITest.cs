@@ -9,10 +9,8 @@ namespace ConsoleApplication
         {
             Task<int> Hello();
             Task<string> World();
-
             Task<MyResult> GetResult();
-
-            Task<int> DelayWorld();
+            Task DelayWorld();
         }
     }
 }

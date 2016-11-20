@@ -15,15 +15,13 @@ namespace ConsoleApplication
             }
 
             int delayWorldCount = 0;
-            public async Task<int> DelayWorld()
+            public async Task DelayWorld()
             {
                 delayWorldCount++;
                 const int delay = 2000;
                 WriteThread($"{nameof(DelayWorld)} for {delay/1000.0} s", delayWorldCount);
                 
                 await Task.Delay(delay);
-                return delay;
-                
             }
 
             int resultCount = 0;
