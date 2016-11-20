@@ -1,7 +1,7 @@
 using System;
 using Castle.DynamicProxy;
 
-namespace ActoR 
+namespace ActoR
 {
     public static class ActorFactory
     {
@@ -16,6 +16,11 @@ namespace ActoR
 
             return proxy;
 
+        }
+
+        public static Actor Create(ActorAffinity affinity)
+        {
+            return new Actor(affinity);
         }
 
 
