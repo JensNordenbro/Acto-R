@@ -12,7 +12,7 @@ namespace ActoR
             var generator = new ProxyGenerator();
 
             TInterface proxy = generator.CreateInterfaceProxyWithoutTarget<TInterface>(
-                new ActorInterceptor<TConcrete>(instanceFactory(), affinity));
+                new StandardInterceptor<TConcrete>(instanceFactory(), affinity));
 
             return proxy;
 
