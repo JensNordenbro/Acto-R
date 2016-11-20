@@ -21,7 +21,8 @@ Notice, all return types in the interface must be Task<>:s.
 Later create an Actor that services the calls to the interface methods: 
  
         ITest testActorProxy = ActorFactory.Create<ITest, Test>(() => new Test(), ActorAffinity.LongRunningThread);
-       
+
+All calls on testActorProxy will be serviced in order, by the same actor, respecting the ActorAffinity-rules stated during construction. 
 
 ### Howto manage lambdas by an actor 
 
@@ -30,7 +31,7 @@ Later create an Actor that services the calls to the interface methods:
         
         Task<int> t2 = actor.Do ( () => { ...; return intValue; } );
 
-The two different lambdas will be serviced by the actor in the order they arrived. 
+The two different lambdas will be serviced in order, by the same actor, respecting the ActorAffinity-rules stated during construction. 
 
 ## Roadmap 0.1
 * Unit tests 
