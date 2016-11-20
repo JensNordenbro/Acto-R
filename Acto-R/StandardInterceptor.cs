@@ -5,12 +5,12 @@ using System.Threading.Tasks.Dataflow;
 
 namespace ActoR
 {
-    sealed class StandardInterceptor<T> : IInterceptor
+    sealed class ActorInterceptor<T> : IInterceptor
     {
         private readonly T m_T;
         private readonly BufferBlock<Func<Task>> m_queue = new BufferBlock<Func<Task>>();
 
-        public StandardInterceptor(T t, ActorAffinity affintiy)
+        public ActorInterceptor(T t, ActorAffinity affintiy)
         {
             m_T = t;
             if (affintiy == ActorAffinity.LongRunningThread)
