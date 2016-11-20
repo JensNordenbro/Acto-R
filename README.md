@@ -7,7 +7,7 @@ Even though only one thread initiates work within your Actor, your implementatio
 
 It is possible to configure Thread affinity using ActorAffinity.LongRunningThread-option. If this is not necessary, only use ActorAffinity.ThreadPoolThread. Regardless exactly one call is executing in your actor taget at a time.  
 
-### Howto managed a service implementation by an actor 
+### Howto manage a service implementation by an actor 
 You define a class Test implementing an interface ITest of Task-typed return values: 
 
         public interface ITest
