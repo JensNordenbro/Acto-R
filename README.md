@@ -33,11 +33,17 @@ All calls on testActorProxy will be serviced in order, by the same actor, respec
 
 The two different lambdas will be serviced in order, by the same actor, respecting the ActorAffinity-rules stated during construction. 
 
+
+## Working with Acto-R
+
+Developed using Visual Studio 2017, .NET Core 1.1. 
+You always build from src. See roadmap for further info about NuGet-support. 
+
 ## Roadmap 0.1
 * Unit tests 
 * Decide target frameworks 
 * Cleanup dependencies
-* Create and Push Nuget 0.1 version [Get the whole chain]
+* Create and Push a Nuget 0.1 version [Get the whole chain]
 
 ## Roadmap 1.0: 
 * Think through API
@@ -45,6 +51,7 @@ The two different lambdas will be serviced in order, by the same actor, respecti
 * Validate claims in Readme
 * Stabilization
 * Code quality
+* Determine minimal development requirements
 
 ## Roadmap 1.0/2.0:
 
