@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console", "Console\Console.csproj", "{1E5393D9-6F96-4BEA-AE85-D508BC336E5A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{A75FAFF1-5162-4DCF-BAAD-D0649FD74148}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7A158AC7-9BE8-422F-9878-CDB6AEF3B4A6} = {7A158AC7-9BE8-422F-9878-CDB6AEF3B4A6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
