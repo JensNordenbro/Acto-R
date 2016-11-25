@@ -106,6 +106,9 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <PropertyGroup Label="Configuration">
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
     <DefineConstants>$(DefineConstants);FEATURE_NETCORE_REFLECTION_API</DefineConstants>
   </PropertyGroup>

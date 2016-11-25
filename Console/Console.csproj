@@ -19,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Acto-R\Acto-R.csproj" />
+    <ProjectReference Include="..\CastleClone\src\Castle.Core\Castle.Core.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
