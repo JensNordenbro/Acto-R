@@ -4,6 +4,15 @@
     <TargetFramework>netstandard1.3</TargetFramework>
     <DebugType>portable</DebugType>
     <AssemblyName>Acto-R</AssemblyName>
+    <PackageId>Acto-R</PackageId>
+    <PackageVersion>1.0.0-alfa</PackageVersion>
+    <Authors>Jens Nordenbro</Authors>
+    <Description>Experimental Actors framework</Description>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Alfa release</PackageReleaseNotes>
+    <Copyright>Copyright 2016 (c) Jens Nordenbro. All rights reserved.</Copyright>
+    <PackageTags>Actors-framework Actor Actors</PackageTags>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
