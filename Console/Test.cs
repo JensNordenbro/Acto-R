@@ -25,11 +25,11 @@ namespace ConsoleApplication
             }
 
             int resultCount = 0;
-            public async Task<MyResult> GetResult()
+            public Task<MyResult> GetResult()
             {
                 resultCount++;
                 WriteThread(nameof(GetResult), resultCount);
-                return new MyResult();
+                return Task.FromResult(new MyResult());
             }
 
 
