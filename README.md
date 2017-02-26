@@ -1,6 +1,6 @@
 # Acto-R actors framework 
 
-Actor-R is a simple, small, experimental proxy library that is meant to enable actors based programming model while still keeping the simple model of Task-based async-await programming.
+Acto-R is a simple, small, experimental proxy library that is meant to enable actors based programming model while still keeping the simple model of Task-based async-await programming.
 
 It enables you to avoid locking mechanisms while still ensuring only one consuming thread starts method execution code in your actor-targets. Hence this is a way to avoid the problem of there being no proper reentrent locking mechanism available for async-await based implementations in .NET Core/.NET Framework. 
 Even though only one thread initiates work within your Actor, your implementation may spawn multiple threads and call other async operations. This means scalability is still in your hands.  
