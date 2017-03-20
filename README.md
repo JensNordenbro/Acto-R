@@ -36,16 +36,14 @@ The two different lambdas will be serviced in order, by the same actor, respecti
 
 ## Working with Acto-R
 
-Developed using Visual Studio 2017, .NET Core 1.1. 
-You always build from src. See roadmap for further info about NuGet-support. 
+Developed using Visual Studio 2017, .NET Core 1.1.
+Download 1.0.0-alfa at nuget.org. -Pre required. See roadmap for further info about staben 1.0.0.
 
-## Roadmap 0.1
+## Roadmap 1.0: 
 * Unit tests 
 * Decide target frameworks 
 * Cleanup dependencies
 * Create and Push a Nuget 0.1 version [Get the whole chain]
-
-## Roadmap 1.0: 
 * Think through API
 * Proper Interface validation
 * Validate claims in Readme
@@ -53,7 +51,7 @@ You always build from src. See roadmap for further info about NuGet-support.
 * Code quality
 * Determine minimal development requirements
 
-## Roadmap 1.0/2.0:
+## Roadmap 2.0:
 
 * Affintiy groups (many actors, same thread)
 * ...
