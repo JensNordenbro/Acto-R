@@ -36,10 +36,11 @@ The two different lambdas will be serviced in order, by the same actor, respecti
 
 ## Working with Acto-R
 
-Developed using Visual Studio 2017, .NET Core 1.1.
-Download 1.0.0-alfa at nuget.org. -Pre required. See roadmap for further info about staben 1.0.0.
+Developed using Visual Studio 2017, .NET Core 1.1, targeting netstandard for modern target framework coverage.
+Download 1.0.0-alfa at nuget.org. -Pre required.
+See roadmap for further info about stable 1.0.0.
 
-## Roadmap 1.0: 
+## Roadmap 1.0.0: 
 * Unit tests 
 * Decide target frameworks 
 * Cleanup dependencies
