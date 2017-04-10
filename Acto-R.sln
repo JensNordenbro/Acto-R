@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\
 		{7A158AC7-9BE8-422F-9878-CDB6AEF3B4A6} = {7A158AC7-9BE8-422F-9878-CDB6AEF3B4A6}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acto-R-Test", "Acto-R-Test\Acto-R-Test.csproj", "{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,18 @@ Global
 		{A75FAFF1-5162-4DCF-BAAD-D0649FD74148}.Release|x64.Build.0 = Release|Any CPU
 		{A75FAFF1-5162-4DCF-BAAD-D0649FD74148}.Release|x86.ActiveCfg = Release|Any CPU
 		{A75FAFF1-5162-4DCF-BAAD-D0649FD74148}.Release|x86.Build.0 = Release|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Debug|x64.Build.0 = Debug|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Debug|x86.Build.0 = Debug|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Release|x64.ActiveCfg = Release|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Release|x64.Build.0 = Release|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Release|x86.ActiveCfg = Release|Any CPU
+		{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

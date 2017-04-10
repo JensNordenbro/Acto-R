@@ -17,9 +17,17 @@ namespace ActoR
         {
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
             m_ActorEngine.Post(() => {
-                actionToRun();
-                tcs.SetResult(1);
-                return Task.CompletedTask;
+                try
+                {
+                    actionToRun();
+                    tcs.SetResult(1);
+                    return Task.CompletedTask;
+                }
+                catch (Exception e)
+                {
+                    tcs.SetException(e);
+                    return tcs.Task;
+                }
             });
             return tcs.Task.AsNonReturningTask();
         }
@@ -29,9 +37,18 @@ namespace ActoR
             var tcs = new TaskCompletionSource<T>();
             m_ActorEngine.Post(() =>
             {
-                T result = funcToRun();
-                tcs.SetResult(result);
-                return Task.FromResult(result);
+                try
+                {
+                    T result = funcToRun();
+                    tcs.SetResult(result);
+                    return tcs.Task;
+                }
+                catch (Exception e)
+                {
+                    tcs.SetException(e);
+                    return tcs.Task;
+                }
+                
             });
             return tcs.Task;
         }
