@@ -1,0 +1,1 @@
+dotnet pack Acto-R\Acto-R.csproj --include-symbols -c Release
