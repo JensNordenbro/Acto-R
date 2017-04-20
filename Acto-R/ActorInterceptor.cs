@@ -15,7 +15,6 @@ namespace ActoR
             m_ActorEngine = new ActorEngine(affintiy);
         }
 
-
         public void Intercept(IInvocation invocation)
         {
             bool containsReturnValue = invocation.Method.ReturnType.IsConstructedGenericType;
@@ -32,11 +31,21 @@ namespace ActoR
                         if (containsReturnValue)
                         {
                             dynamic prevFlexible = previous;
-                            tcs.SetResult(prevFlexible.Result);
+                            if (taskReturned.IsCompleted)
+                                tcs.SetResult(prevFlexible.Result);
+                            else if (taskReturned.IsCanceled)
+                                tcs.SetCanceled();
+                            else
+                                tcs.SetException(taskReturned.Exception);
                         }
                         else
                         {
-                            tcs.SetResult("No result");
+                            if (taskReturned.IsCompleted)
+                                tcs.SetResult("No result");
+                            else if (taskReturned.IsCanceled)
+                                tcs.SetCanceled();
+                            else
+                                tcs.SetException(taskReturned.Exception);
                         }
                     });
                 }
