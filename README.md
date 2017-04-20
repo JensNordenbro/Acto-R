@@ -41,6 +41,8 @@ Download 1.0.0-alfa at nuget.org. -Pre required.
 See roadmap for further info about stable 1.0.0.
 
 ## Roadmap 1.0.0: 
+* Correct exeception propagation
+* Correct cancellation propagation
 * Unit tests 
 * Decide target frameworks 
 * Cleanup dependencies
