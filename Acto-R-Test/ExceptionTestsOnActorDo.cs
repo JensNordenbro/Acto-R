@@ -4,7 +4,7 @@ using Xunit;
 
 namespace ActoR
 {
-    public class ExceptionTests
+    public class ExceptionTestsOnActorDo
     {
         [Theory]
         [InlineData(ActorAffinity.LongRunningThread)]

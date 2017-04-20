@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.25914.0
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acto-R", "Acto-R\Acto-R.csproj", "{7A158AC7-9BE8-422F-9878-CDB6AEF3B4A6}"
 EndProject
@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\
 		{7A158AC7-9BE8-422F-9878-CDB6AEF3B4A6} = {7A158AC7-9BE8-422F-9878-CDB6AEF3B4A6}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acto-R-Test", "Acto-R-Test\Acto-R-Test.csproj", "{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acto-R-Test", "Acto-R-Test\Acto-R-Test.csproj", "{97292C2C-BAA4-4BAF-8F1E-75A3864DD6F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

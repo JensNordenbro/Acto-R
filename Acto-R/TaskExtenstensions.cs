@@ -22,7 +22,7 @@ namespace ActoR
 
         public static Task AsNonReturningTask(this Task<object> input)
         {
-            return input.ContinueWith(task => { });
+            return input;
         }
 
         private static class Internal

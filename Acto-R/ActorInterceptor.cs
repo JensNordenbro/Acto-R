@@ -26,6 +26,7 @@ namespace ActoR
                 {
                     var taskReturned = (Task)invocation.Method.Invoke(m_T, invocation.Arguments);
 
+
                     taskReturned.ContinueWith(previous =>
                     {
                         if (containsReturnValue)
