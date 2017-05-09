@@ -32,19 +32,23 @@ namespace ActoR
                         if (containsReturnValue)
                         {
                             dynamic prevFlexible = previous;
-                            if (taskReturned.IsCompleted)
-                                tcs.SetResult(prevFlexible.Result);
+                            if (taskReturned.IsFaulted)
+                                tcs.SetException(taskReturned.Exception);
                             else if (taskReturned.IsCanceled)
                                 tcs.SetCanceled();
+                            else if (taskReturned.IsCompleted)
+                                tcs.SetResult(prevFlexible.Result);
                             else
                                 tcs.SetException(taskReturned.Exception);
                         }
                         else
                         {
-                            if (taskReturned.IsCompleted)
-                                tcs.SetResult("No result");
+                            if (taskReturned.IsFaulted)
+                                tcs.SetException(taskReturned.Exception);
                             else if (taskReturned.IsCanceled)
                                 tcs.SetCanceled();
+                            else if (taskReturned.IsCompleted)
+                                tcs.SetResult("No result");
                             else
                                 tcs.SetException(taskReturned.Exception);
                         }
