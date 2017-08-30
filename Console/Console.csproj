@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Castle.Core">
-      <Version>4.0.0</Version>
+      <Version>4.1.1</Version>
     </PackageReference>
     <ProjectReference Include="..\Acto-R\Acto-R.csproj" />
   </ItemGroup>
