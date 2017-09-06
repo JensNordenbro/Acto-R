@@ -28,28 +28,14 @@ namespace ActoR
 
                     taskReturned.ContinueWith(previous =>
                     {
-                        if (containsReturnValue)
-                        {
-                            if (previous.IsFaulted)
+                         if (previous.IsFaulted)
                                 tcs.SetException(previous.Exception);
-                            else if (previous.IsCanceled)
-                                tcs.SetCanceled();
-                            else if (previous.IsCompleted)
-                                tcs.SetResult(((dynamic)previous).Result);
-                            else
-                                tcs.SetException(previous.Exception);
-                        }
+                        else if (previous.IsCanceled)
+                            tcs.SetCanceled();
+                        else if (previous.IsCompleted)
+                            tcs.SetResult(containsReturnValue ? ((dynamic)previous).Result :"No result");
                         else
-                        {
-                            if (previous.IsFaulted)
-                                tcs.SetException(previous.Exception);
-                            else if (previous.IsCanceled)
-                                tcs.SetCanceled();
-                            else if (previous.IsCompleted)
-                                tcs.SetResult("No result");
-                            else
-                                tcs.SetException(previous.Exception);
-                        }
+                            tcs.SetException(previous.Exception);
                     });
                 }
                 catch (Exception e)
