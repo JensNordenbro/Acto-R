@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Acto-R</AssemblyName>
     <PackageId>Acto-R</PackageId>
-    <PackageVersion>1.0.0-beta-netstandard2</PackageVersion>
+    <PackageVersion>1.0.0-gamma-netstandard2</PackageVersion>
     <Authors>Jens Nordenbro</Authors>
     <Description>Experimental Actors framework</Description>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</PackageLicenseUrl>
