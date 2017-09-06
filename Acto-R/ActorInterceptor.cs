@@ -26,6 +26,9 @@ namespace ActoR
                 {
                     var taskReturned = (Task)invocation.Method.Invoke(m_T, invocation.Arguments);
 
+                    if (taskReturned.IsFaulted)
+                        tcs.SetException(taskReturned.Exception);
+
                     taskReturned.ContinueWith(previous =>
                     {
                          if (previous.IsFaulted)
