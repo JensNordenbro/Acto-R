@@ -29,7 +29,7 @@ namespace ActoR
                     taskReturned.ContinueWith(previous =>
                     {
                          if (previous.IsFaulted)
-                                tcs.SetException(previous.Exception);
+                            tcs.SetException(previous.Exception);
                         else if (previous.IsCanceled)
                             tcs.SetCanceled();
                         else if (previous.IsCompleted)
