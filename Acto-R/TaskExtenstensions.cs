@@ -27,8 +27,22 @@ namespace ActoR
 
         private static class Internal
         {
-            public static Task<TReturnType> ChangeTaskType<TReturnType>(Task<object> o) =>
-                o.ContinueWith(prev => (TReturnType)prev.Result);
+            public static Task<TReturnType> ChangeTaskType<TReturnType>(Task<object> o) 
+            {
+                var tcs = new TaskCompletionSource<TReturnType>();
+                o.ContinueWith(previous => {
+                    if (previous.IsFaulted)
+                        tcs.SetException(previous.Exception.InnerException);
+                    else if (previous.IsCanceled)
+                        tcs.SetCanceled();
+                    else if (previous.IsCompleted)
+                        tcs.SetResult((TReturnType)previous.Result);
+                    else
+                        tcs.SetException(previous.Exception);
+                });
+                return tcs.Task;
+            }
+                
         }
 
     }

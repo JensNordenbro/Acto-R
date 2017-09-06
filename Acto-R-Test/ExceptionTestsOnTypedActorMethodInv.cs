@@ -17,7 +17,7 @@ namespace ActoR
         public async void TestTask(ActorAffinity affinity)
         {
             ITypedThrowing actor = ActorFactory.Create<ITypedThrowing, TypedThrowing>(() => new TypedThrowing(), affinity);
-            await Assert.ThrowsAsync<System.AggregateException>(async () => await actor.A());
+            await Assert.ThrowsAsync<TypedThrowing.AException>(async () => await actor.A());
 
         }
 
@@ -41,7 +41,7 @@ namespace ActoR
             internal class AException : Exception {}
             public Task<bool> A()
             {
-                throw new Exception(nameof(A));
+                throw new AException();
             }
 
             internal class BException : Exception {}
