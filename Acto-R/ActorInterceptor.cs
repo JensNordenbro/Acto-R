@@ -26,31 +26,30 @@ namespace ActoR
                 {
                     var taskReturned = (Task)invocation.Method.Invoke(m_T, invocation.Arguments);
 
-
                     taskReturned.ContinueWith(previous =>
                     {
                         if (containsReturnValue)
                         {
                             dynamic prevFlexible = previous;
-                            if (taskReturned.IsFaulted)
-                                tcs.SetException(taskReturned.Exception);
-                            else if (taskReturned.IsCanceled)
+                            if (previous.IsFaulted)
+                                tcs.SetException(previous.Exception);
+                            else if (previous.IsCanceled)
                                 tcs.SetCanceled();
-                            else if (taskReturned.IsCompleted)
+                            else if (previous.IsCompleted)
                                 tcs.SetResult(prevFlexible.Result);
                             else
-                                tcs.SetException(taskReturned.Exception);
+                                tcs.SetException(previous.Exception);
                         }
                         else
                         {
-                            if (taskReturned.IsFaulted)
-                                tcs.SetException(taskReturned.Exception);
-                            else if (taskReturned.IsCanceled)
+                            if (previous.IsFaulted)
+                                tcs.SetException(previous.Exception);
+                            else if (previous.IsCanceled)
                                 tcs.SetCanceled();
-                            else if (taskReturned.IsCompleted)
+                            else if (previous.IsCompleted)
                                 tcs.SetResult("No result");
                             else
-                                tcs.SetException(taskReturned.Exception);
+                                tcs.SetException(previous.Exception);
                         }
                     });
                 }
