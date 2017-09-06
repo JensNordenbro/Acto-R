@@ -30,13 +30,12 @@ namespace ActoR
                     {
                         if (containsReturnValue)
                         {
-                            dynamic prevFlexible = previous;
                             if (previous.IsFaulted)
                                 tcs.SetException(previous.Exception);
                             else if (previous.IsCanceled)
                                 tcs.SetCanceled();
                             else if (previous.IsCompleted)
-                                tcs.SetResult(prevFlexible.Result);
+                                tcs.SetResult(((dynamic)previous).Result);
                             else
                                 tcs.SetException(previous.Exception);
                         }
