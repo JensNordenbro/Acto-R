@@ -1,6 +1,7 @@
 using Castle.DynamicProxy;
 using System;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace ActoR
 {
@@ -24,6 +25,7 @@ namespace ActoR
             {
                 try
                 {
+                    // when target method throws an exception TargetInvocationException will be invoked!
                     var taskReturned = (Task)invocation.Method.Invoke(m_T, invocation.Arguments);
 
                     if (taskReturned.IsFaulted)
@@ -41,9 +43,9 @@ namespace ActoR
                             tcs.SetException(previous.Exception);
                     });
                 }
-                catch (Exception e)
+                catch(TargetInvocationException ite)
                 {
-                    tcs.SetException(e);
+                    tcs.SetException(ite.InnerException);
                 }
                 return tcs.Task;
             });
