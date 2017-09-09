@@ -1,8 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Xunit;
+using ActoR;
 
-namespace ActoR
+namespace ActoRTest
 {
     public class ExceptionTestsOnActorDo
     {
