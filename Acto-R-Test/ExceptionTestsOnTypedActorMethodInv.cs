@@ -5,9 +5,6 @@ using Xunit;
 namespace ActoR
 {
 
-    /// <summary>
-    /// todo: Actually the exceptions have the wrong types but this will do for now
-    /// </summary>
     public class ExceptionTestsOnTypedActorMethodInv
     {
 
