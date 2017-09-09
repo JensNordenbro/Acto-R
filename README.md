@@ -36,6 +36,12 @@ The two different lambdas will be serviced in order, by the same actor, respecti
 
 ## Working with Acto-R
 
+### Consuming Acto-R
+
+https://www.nuget.org/packages/Acto-R/1.0.0
+
+### Improving Acto-R
+
 Developed using Visual Studio Code, .NET Core 2.0, targeting netstandard2.0.
 
 
