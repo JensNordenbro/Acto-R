@@ -55,7 +55,6 @@ namespace ActoRTest
             int []given = {1,4};
             var r = new Actor(affinity);
 
-
             Task t1 =  r.Do(() => {
                 Thread.Sleep(3000);
                 result.Add(given[0]);
