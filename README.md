@@ -36,23 +36,24 @@ The two different lambdas will be serviced in order, by the same actor, respecti
 
 ## Working with Acto-R
 
-Developed using Visual Studio 2017, .NET Core 1.1, targeting netstandard for modern target framework coverage.
-Download 1.0.0-alfa at nuget.org. -Pre required.
-See roadmap for further info about stable 1.0.0.
+Developed using Visual Studio Code, .NET Core 2.0, targeting netstandard2.0.
+
 
 ## Roadmap 1.0.0: 
+
 * Correct exeception propagation
-* Correct cancellation propagation
 * Unit tests 
-* Decide target frameworks 
 * Cleanup dependencies
 * Create and Push a Nuget 0.1 version [Get the whole chain]
 * Think through API
+* netstandard2.0
+
+## Roadmap 1.1.0:
+
+* Cancellationtoken propagation
 * Proper Interface validation
 * Validate claims in Readme
-* Stabilization
-* Code quality
-* Determine minimal development requirements
+* Code quality (FxCop, de-duplication, ...)
 
 ## Roadmap 2.0:
 
