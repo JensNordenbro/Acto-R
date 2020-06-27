@@ -6,7 +6,7 @@
     <PackageVersion>1.0.0</PackageVersion>
     <Authors>Jens Nordenbro</Authors>
     <Description>Experimental Actors framework</Description>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Alfa release</PackageReleaseNotes>
     <Copyright>Copyright 2016 (c) Jens Nordenbro. All rights reserved.</Copyright>
