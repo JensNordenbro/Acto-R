@@ -25,6 +25,8 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
     - name: Pack 
       run: dotnet pack --configuration Release
+    - name: Tree 
+      run: tree
     - name: Publish NuGet 
       run: 
         dotnet nuget push ./Acto-R/bin/Release/Acto-R.${{secrets.NUGET_VERSION}}.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --force-english-output
