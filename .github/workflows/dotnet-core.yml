@@ -27,8 +27,8 @@ jobs:
       run: dotnet pack --configuration Release
     - name: Publish NuGet 
       run: 
-        dotnet nuget push .\Acto-R\bin\Debug\Acto-R.${{secrets.NUGET_VERSION}}.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --force-english-output
+        dotnet nuget push Acto-R/bin/Debug/Acto-R.${{secrets.NUGET_VERSION}}.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --force-english-output
     - name: Publish NuGet-SourceLink 
       run: 
-        dotnet nuget push .\Acto-R\bin\Debug\Acto-R.${{secrets.NUGET_VERSION}}.snupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --force-english-output
+        dotnet nuget push Acto-R/bin/Debug/Acto-R.${{secrets.NUGET_VERSION}}.snupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --force-english-output
 
