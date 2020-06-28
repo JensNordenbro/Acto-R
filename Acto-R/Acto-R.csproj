@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Acto-R</AssemblyName>
     <PackageId>Acto-R</PackageId>
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
     <Authors>Jens Nordenbro</Authors>
     <Description>Experimental Actors framework</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
